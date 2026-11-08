@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>سواء | محاكاة تدقيق عدالة الذكاء الاصطناعي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6F7;--sf:#fff;--ink:#12303D;--mu:#5B7280;--ln:#D5DFE3;--teal:#0E7C86;--tealbg:#DDF0F1;--amb:#B87A0B;--ambbg:#FBEFD3;--red:#B13E36;--redbg:#F8E1DE;--grn:#2C7A4B;--grnbg:#DCEFE3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1E27;--sf:#142A35;--ink:#E6EEF1;--mu:#93A9B3;--ln:#27424F;--teal:#4FC3CC;--tealbg:#143C44;--amb:#E8B04A;--ambbg:#3A2E12;--red:#EE8A80;--redbg:#40201D;--grn:#6CCB91;--grnbg:#173A28;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1E27;--sf:#142A35;--ink:#E6EEF1;--mu:#93A9B3;--ln:#27424F;--teal:#4FC3CC;--tealbg:#143C44;--amb:#E8B04A;--ambbg:#3A2E12;--red:#EE8A80;--redbg:#40201D;--grn:#6CCB91;--grnbg:#173A28;color-scheme:dark}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.8 "IBM Plex Sans Arabic",Tahoma,sans-serif}
+.w{max-width:1000px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--ln);z-index:5}
+header .w{display:flex;justify-content:space-between;align-items:center;height:56px}
+header b{font-size:22px;color:var(--teal)}
+nav{display:flex;gap:18px;font-size:15px;overflow-x:auto}
+nav a{color:var(--mu);text-decoration:none;white-space:nowrap}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.hero{padding:44px 0 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+h1{font-size:clamp(54px,12vw,104px);line-height:1;margin:0;color:var(--teal);font-weight:700}
+.hero p.lead{font-size:20px;margin:14px 0 22px;max-width:30em}
+h2{font-size:28px;margin:0 0 12px;line-height:1.4}
+h3{font-size:18px;margin:0 0 6px}
+section{padding:40px 0;border-top:1px solid var(--ln)}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:11px 22px;font:700 16px inherit;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.o{background:transparent;color:var(--teal);border:2px solid var(--teal)}
+:root[data-theme="dark"] .btn:not(.o){color:#06242A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.o){color:#06242A}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+ul.p{padding:0 20px 0 0;margin:8px 0}
+.note{background:var(--tealbg);border-right:4px solid var(--teal);padding:12px 16px;border-radius:6px;margin-top:16px}
+dl{margin:0}dt{font-weight:700;margin-top:14px}dd{margin:0;color:var(--mu)}
+.sim{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+label{display:block;font-size:14px;color:var(--mu);margin-bottom:2px}
+select,input[type=number]{width:100%;padding:9px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
+table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:15px}
+th,td{padding:6px 6px;text-align:right}th{color:var(--mu);font-weight:500;font-size:14px}
+td input{max-width:110px}
+.sc{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 18px}
+.sc button{background:var(--bg);color:var(--ink);border:1px solid var(--ln);border-radius:20px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer}
+.sc button:hover{border-color:var(--teal)}
+.steps{display:flex;gap:0;margin:22px 0 0;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:14px;color:var(--mu);border-top:4px solid var(--ln);padding-top:6px;transition:.3s}
+.steps li.on{border-color:var(--teal);color:var(--teal);font-weight:700}
+#err{color:var(--red);min-height:1.6em;font-size:15px}
+#res{display:none;margin-top:26px;border-top:1px solid var(--ln);padding-top:22px}
+.top{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:center}
+.badge{display:inline-block;padding:3px 14px;border-radius:20px;font-weight:700;font-size:15px}
+.g{background:var(--grnbg);color:var(--grn)}.a{background:var(--ambbg);color:var(--amb)}.r{background:var(--redbg);color:var(--red)}
+.bar{display:grid;grid-template-columns:110px 1fr 60px;gap:10px;align-items:center;font-size:15px;margin:5px 0}
+.tr{height:14px;background:var(--bg);border-radius:7px;position:relative;overflow:hidden;border:1px solid var(--ln)}
+.tr i{display:block;height:100%;background:var(--teal);width:0;transition:width .8s}
+.tr i.b{background:var(--amb)}
+.tr s{position:absolute;top:0;bottom:0;width:2px;background:var(--red)}
+.m{margin-top:18px}
+.m h3 small{font-weight:400;color:var(--mu);font-size:14px}
+pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:14px;font:15px/1.8 inherit;font-family:inherit;margin:10px 0}
+.why{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:14px}
+.why div{border-top:3px solid var(--teal);padding-top:8px}
+.why p{margin:4px 0 0;font-size:15px;color:var(--mu);line-height:1.6}
+footer{padding:30px 0 40px;border-top:1px solid var(--ln);color:var(--mu);font-size:15px}
+svg{width:100%;height:auto;display:block}
+@media(max-width:760px){.hero,.two,.top{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.bar{grid-template-columns:90px 1fr 54px}nav{display:none}table{display:block;overflow-x:auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="w"><b>سواء</b><nav><a href="#about">عن المنصة</a><a href="#how">كيف تقيس</a><a href="#sim">التجربة الحية</a><a href="#why">لماذا سواء</a></nav></div></header>
+
+<main class="w">
+<div class="hero">
+ <div>
+  <h1>سواء</h1>
+  <p class="lead">منصة استشارية تفحص قرارات أنظمة الذكاء الاصطناعي في التوظيف والإدارة، وتكشف مؤشرات التحيز قبل أن تتحول إلى واقع.</p>
+  <a class="btn" href="#sim">جرّب التدقيق</a>
+ </div>
+ <svg viewBox="0 0 300 190" role="img" aria-label="ميزان متوازن"><g id="hb"></g></svg>
+</div>
+
+<section id="about">
+ <div class="two">
+  <div>
+   <h2>عدالة قرارات الذكاء الاصطناعي</h2>
+   <p>مع تزايد اعتماد المؤسسات على الذكاء الاصطناعي، تتزايد احتمالية النتائج المتحيزة بسبب البيانات المستخدمة أو معايير تدريب الخوارزميات. وقد يظهر ذلك في:</p>
+   <ul class="p"><li>تفضيل فئة على أخرى في قرارات التوظيف.</li><li>استبعاد مرشحين مؤهلين لأسباب لا ترتبط بكفاءتهم.</li><li>تفاوت فرص الترقية والتدريب بين الموظفين.</li><li>استمرار التحيزات الموجودة في البيانات السابقة.</li></ul>
+  </div>
+  <div>
+   <h2>ما هي سواء؟</h2>
+   <p>تستخدم أدوات تحليل البيانات ومؤشرات العدالة الخوارزمية لفحص مخرجات الأنظمة الذكية، وقياس التفاوت في النتائج بين المجموعات، وتقديم توصيات لتحسين عدالتها.</p>
+   <div class="note">لا تصدر المنصة أحكاماً نهائية بوجود التمييز، ولا تتخذ القرارات بدلاً من المؤسسات. تقدم تقييماً استشارياً يدعم المراجعة والتحسين.</div>
+  </div>
+ </div>
+ <div class="two" style="margin-top:28px">
+  <div><h3>التوظيف والموارد البشرية</h3><ul class="p"><li>فرز السير الذاتية.</li><li>اختيار المرشحين للمقابلات.</li><li>تقييم المتقدمين للوظائف.</li><li>الترشيح للترقية والتطوير المهني.</li></ul></div>
+  <div><h3>القرارات الإدارية المؤتمتة</h3><ul class="p"><li>توزيع فرص التدريب.</li><li>تقييم أداء الموظفين.</li><li>توزيع المهام والفرص الوظيفية.</li><li>أنظمة الترشيح والمفاضلة الداخلية.</li></ul></div>
+ </div>
+ <p style="margin-top:18px"><b>من يستفيد؟</b> الجهات الحكومية (إدارات الموارد البشرية والجهات التي تستخدم الذكاء الاصطناعي في القرارات الإدارية)، والقطاع الخاص (الشركات وإدارات التوظيف والشركات المطورة لأنظمة الذكاء الاصطناعي).</p>
+</section>
+
+<section id="how">
+ <h2>كيف تقيس سواء عدالة القرارات؟</h2>
+ <dl>
+  <dt>نسبة الاختيار</dt><dd>مقارنة نسب قبول الأفراد بين المجموعات.</dd>
+  <dt>الأثر المتباين</dt><dd>رصد الاختلافات الملحوظة في نتائج القرارات. يُعد انخفاض النسبة بين المجموعتين عن 0.8 مؤشراً يستدعي المراجعة.</dd>
+  <dt>تكافؤ الفرص</dt><dd>مقارنة معدلات اختيار المؤهلين من المجموعات المختلفة.</dd>
+  <dt>اختبار المتغيرات البديلة</dt><dd>فحص احتمال تأثر القرارات بمتغيرات ترتبط بصورة غير مباشرة بخصائص الأفراد.</dd>
+ </dl>
+ <div class="note">تُستخدم هذه الأدوات للكشف عن مؤشرات تستدعي المراجعة، وليس لإثبات التحيز بصورة قطعية.</div>
+</section>
+
+<section id="sim">
+ <h2>التجربة الحية</h2>
+ <p>محاكاة توضيحية: اختر نوع النظام، وأدخل بيانات افتراضية لنتائج قراراته، ثم شغّل التدقيق للحصول على التقرير الاستشاري.</p>
+ <div class="sim">
+  <div class="grid">
+   <div><label for="sys">نوع النظام المراد تدقيقه</label><select id="sys"></select></div>
+   <div><label for="attr">الخاصية المقارَنة</label><select id="attr"></select></div>
+   <div><label for="px">ارتباط متغير بديل بالخاصية: <b id="pxv">20</b>%</label><input id="px" type="range" min="0" max="100" value="20" style="width:100%;accent-color:var(--teal)"></div>
+  </div>
+  <div class="sc" role="group" aria-label="بيانات جاهزة"><span style="align-self:center;color:var(--mu);font-size:14px">بيانات جاهزة:</span>
+   <button data-s="0">نتائج متوازنة</button><button data-s="1">تفاوت طفيف</button><button data-s="2">تفاوت كبير</button></div>
+  <table><thead><tr><th>المجموعة</th><th>عدد المتقدمين</th><th id="h2">المختارون</th><th>المؤهلون</th><th>المؤهلون المختارون</th></tr></thead>
+   <tbody>
+    <tr><td id="na">أ</td><td><input type="number" min="0" id="a0" aria-label="متقدمو أ"></td><td><input type="number" min="0" id="a1" aria-label="مختارو أ"></td><td><input type="number" min="0" id="a2" aria-label="مؤهلو أ"></td><td><input type="number" min="0" id="a3" aria-label="مؤهلون مختارون أ"></td></tr>
+    <tr><td id="nb">ب</td><td><input type="number" min="0" id="b0" aria-label="متقدمو ب"></td><td><input type="number" min="0" id="b1" aria-label="مختارو ب"></td><td><input type="number" min="0" id="b2" aria-label="مؤهلو ب"></td><td><input type="number" min="0" id="b3" aria-label="مؤهلون مختارون ب"></td></tr>
+   </tbody></table>
+  <button class="btn" id="run">تشغيل التدقيق</button>
+  <div id="err" role="alert"></div>
+  <ol class="steps" id="steps"><li>إدخال البيانات</li><li>التحليل</li><li>قياس العدالة</li><li>التقرير الاستشاري</li></ol>
+
+  <div id="res" aria-live="polite">
+   <div class="top">
+    <svg viewBox="0 0 300 190" role="img" aria-label="ميزان نتائج التدقيق"><g id="rb"></g></svg>
+    <div><span class="badge" id="bd"></span><h2 id="hd" style="margin-top:10px;font-size:24px"></h2><p id="sm" style="margin:0;color:var(--mu)"></p></div>
+   </div>
+   <div class="m"><h3>نسبة الاختيار</h3><div id="m1"></div></div>
+   <div class="m"><h3>الأثر المتباين <small>(الخط الأحمر = حد 0.8)</small></h3><div id="m2"></div></div>
+   <div class="m"><h3>تكافؤ الفرص <small>(اختيار المؤهلين)</small></h3><div id="m3"></div></div>
+   <div class="m"><h3>اختبار المتغيرات البديلة</h3><div id="m4"></div></div>
+   <div class="m"><h3>التوصيات الاستشارية</h3><ul class="p" id="rc"></ul></div>
+   <div class="m"><h3>التقرير</h3><pre id="rp"></pre><button class="btn o" id="cp">نسخ التقرير</button> <span id="cpm" style="color:var(--mu);font-size:14px"></span></div>
+  </div>
+ </div>
+ <p style="color:var(--mu);font-size:15px">المحاكاة توضيحية، ولا تمثل تدقيقاً فعلياً لنظام ذكاء اصطناعي قائم.</p>
+</section>
+
+<section id="why">
+ <h2>لماذا سواء؟</h2>
+ <div class="why">
+  <div><h3>الوقاية</h3><p>اكتشاف مؤشرات التحيز قبل استمرار آثارها.</p></div>
+  <div><h3>الشفافية</h3><p>نتائج قابلة للقياس والمراجعة.</p></div>
+  <div><h3>تكافؤ الفرص</h3><p>المساعدة في الحد من التفاوت غير المبرر.</p></div>
+  <div><h3>تحسين الأداء</h3><p>دعم المؤسسات في مراجعة أنظمتها الذكية وتطويرها.</p></div>
+  <div><h3>الموثوقية</h3><p>تعزيز الثقة في القرارات التي تسهم الأنظمة الذكية في اتخاذها.</p></div>
+ </div>
+ <p style="margin-top:22px;font-size:20px;color:var(--teal);font-weight:500">لأن الذكاء الاصطناعي يجب أن يكون أداة للحياد، لا وسيلة لإعادة إنتاج التحيز.</p>
+</section>
+</main>
+<footer><div class="w">سواء مشروع منصة استشارية لتدقيق عدالة أنظمة الذكاء الاصطناعي. جميع البيانات في هذه الصفحة افتراضية.</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const SYS=[["فرز السير الذاتية","المقبولون للمقابلة"],["الترشيح للترقية","المرشحون للترقية"],["توزيع فرص التدريب","المقبولون في التدريب"],["تقييم أداء الموظفين","الحاصلون على تقييم متميز"]];
+const ATT=[["الجنس","ذكور","إناث"],["الفئة العمرية","أقل من 40","40 فأكثر"],["منطقة السكن","حضر","ريف"]];
+const SC=[[400,120,160,80,400,116,150,74,15],[400,130,150,90,400,112,150,84,45],[400,140,150,105,400,72,150,66,72]];
+SYS.forEach((s,i)=>$("sys").add(new Option(s[0],i)));ATT.forEach((s,i)=>$("attr").add(new Option(s[0],i)));
+const ids=["a0","a1","a2","a3","b0","b1","b2","b3"];
+function names(){const a=ATT[$("attr").value];return[a[1],a[2]]}
+function lab(){const [n1,n2]=names();$("na").textContent="المجموعة أ: "+n1;$("nb").textContent="المجموعة ب: "+n2;$("h2").textContent=SYS[$("sys").value][1]}
+function load(i){const v=SC[i];ids.forEach((d,k)=>$(d).value=v[k]);$("px").value=v[8];$("pxv").textContent=v[8];lab()}
+$("sys").onchange=$("attr").onchange=lab;$("px").oninput=()=>$("pxv").textContent=$("px").value;
+document.querySelectorAll(".sc button").forEach(b=>b.onclick=()=>load(+b.dataset.s));
+function beam(g,deg){const L=105,cx=150,cy=40,r=deg*Math.PI/180,dx=L*Math.cos(r),dy=L*Math.sin(r);
+ const x1=cx-dx,y1=cy-dy,x2=cx+dx,y2=cy+dy;
+ const pan=(x,y)=>`<line x1="${x}" y1="${y}" x2="${x-32}" y2="${y+62}" stroke="currentColor" stroke-width="1.5"/><line x1="${x}" y1="${y}" x2="${x+32}" y2="${y+62}" stroke="currentColor" stroke-width="1.5"/><path d="M${x-40} ${y+62}h80a40 14 0 0 1-80 0z" fill="var(--tealbg)" stroke="var(--teal)" stroke-width="2"/>`;
+ $(g).innerHTML=`<g style="color:var(--mu)"><path d="M150 40v110M110 160h80" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>${pan(x1,y1)}${pan(x2,y2)}</g><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--teal)" stroke-width="7" stroke-linecap="round"/><circle cx="150" cy="40" r="8" fill="var(--ink)"/>`}
+beam("hb",0);
+const pc=x=>(x*100).toFixed(1)+"%";
+function row(n,v,b,mark){return`<div class="bar"><span>${n}</span><div class="tr"><i class="${b?"b":""}" data-w="${Math.min(v*100,100)}"></i>${mark?`<s style="right:${mark*100}%"></s>`:""}</div><b>${mark?v.toFixed(2):pc(v)}</b></div>`}
+$("run").onclick=()=>{
+ const v={};ids.forEach(d=>v[d]=+$(d).value);const e=$("err");e.textContent="";
+ for(const g of["a","b"]){const[ap,se,q,qs]=[v[g+"0"],v[g+"1"],v[g+"2"],v[g+"3"]];
+  if(!(ap>0)||ids.some(d=>isNaN(v[d])||v[d]<0)){e.textContent="أدخل أرقاماً صحيحة وعدد متقدمين أكبر من صفر في كل مجموعة.";return}
+  if(se>ap||q>ap||qs>se||qs>q){e.textContent="تحقق من البيانات: المختارون والمؤهلون لا يتجاوزان المتقدمين، والمؤهلون المختارون لا يتجاوزون المختارين ولا المؤهلين.";return}
+  if(q===0){e.textContent="يلزم وجود مؤهلين في كل مجموعة لقياس تكافؤ الفرص.";return}}
+ $("run").disabled=true;$("res").style.display="none";
+ const li=[...$("steps").children];li.forEach(x=>x.classList.remove("on"));
+ li.forEach((x,i)=>setTimeout(()=>x.classList.add("on"),i*450));
+ setTimeout(()=>{show(v);$("run").disabled=false},4*450);
+};
+function show(v){
+ const[n1,n2]=names(),out=SYS[$("sys").value][1],px=+$("px").value;
+ const rA=v.a1/v.a0,rB=v.b1/v.b0,hi=Math.max(rA,rB),lo=Math.min(rA,rB);
+ const ratio=hi?lo/hi:1,tA=v.a3/v.a2,tB=v.b3/v.b2,gap=Math.abs(tA-tB);
+ const low=rA<rB?n1:n2,high=rA<rB?n2:n1;
+ let lvl=0;
+ if(ratio<.9||gap>.05||px>=40)lvl=1;
+ if(ratio<.8||gap>.10||px>=60)lvl=2;
+ const B=[["g","لا مؤشرات بارزة"],["a","مؤشرات تستدعي المراجعة"],["r","مؤشرات قوية تستدعي مراجعة عاجلة"]][lvl];
+ $("bd").className="badge "+B[0];$("bd").textContent=B[1];
+ $("hd").textContent=lvl==0?"النتائج متقاربة بين المجموعتين":`تفاوت في اختيار ${low} مقارنة بـ ${high}`;
+ $("sm").textContent=`نسبة الأثر المتباين ${ratio.toFixed(2)}، وفجوة تكافؤ الفرص ${(gap*100).toFixed(1)} نقطة مئوية.`;
+ $("m1").innerHTML=row(n1,rA,0)+row(n2,rB,1);
+ $("m2").innerHTML=row("النسبة",ratio,0,.8);
+ $("m3").innerHTML=row(n1,tA,0)+row(n2,tB,1);
+ $("m4").innerHTML=row("مستوى الارتباط",px/100,px>=40);
+ const R=[];
+ if(ratio<.8)R.push(`مراجعة معايير الفرز والأوزان الممنوحة للمتغيرات التي قد تفضّل ${high}.`);
+ if(gap>.05)R.push("فحص أداء النظام على المؤهلين تحديداً، فقد يستبعد مؤهلين من إحدى المجموعتين.");
+ if(px>=40)R.push("تحديد المتغيرات البديلة (مثل الحي السكني أو فجوات السيرة الذاتية) وإعادة اختبار النظام بدونها.");
+ if(lvl>0){R.push("إجراء مراجعة بشرية لعينة من القرارات المرفوضة قبل اعتماد النتائج.");R.push("إعادة التدقيق على البيانات نفسها بعد أي تعديل للتحقق من أثره.")}
+ else R.push("الاستمرار في التدقيق الدوري ومقارنة النتائج مع كل تحديث للنظام.");
+ $("rc").innerHTML=R.map(x=>`<li>${x}</li>`).join("");
+ const sys=SYS[$("sys").value][0],at=ATT[$("attr").value][0];
+ $("rp").textContent=`تقرير سواء الاستشاري (محاكاة)\nالنظام: ${sys}\nالخاصية المقارَنة: ${at}\n\nنسبة الاختيار (${out}): ${n1} ${pc(rA)} | ${n2} ${pc(rB)}\nنسبة الأثر المتباين: ${ratio.toFixed(2)}\nتكافؤ الفرص (المؤهلون المختارون): ${n1} ${pc(tA)} | ${n2} ${pc(tB)}\nارتباط المتغير البديل: ${px}%\n\nالتقييم: ${B[1]}\n\nالتوصيات:\n- ${R.join("\n- ")}\n\nتنبيه: هذا التقرير استشاري ولا يثبت وجود تحيز أو تمييز بصورة قطعية، والبيانات افتراضية.`;
+ $("res").style.display="block";
+ beam("rb",Math.max(-22,Math.min(22,(rA-rB)/(hi||1)*40)));
+ requestAnimationFrame(()=>document.querySelectorAll("#res .tr i").forEach(i=>i.style.width=i.dataset.w+"%"));
+ $("res").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("cp").onclick=async()=>{try{await navigator.clipboard.writeText($("rp").textContent);$("cpm").textContent="تم النسخ"}catch(e){$("cpm").textContent="حدّد النص وانسخه يدوياً"}};
+load(1);
+</script>
+</body>
+</html>
